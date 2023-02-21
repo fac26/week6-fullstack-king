@@ -9,7 +9,7 @@ export default function FruitList(props) {
         title={fruit.title}
         image={fruit.image_path}
         price={fruit.price}
-        link={fruit.link}
+        link={`/fruits/${fruit.id}`}
       />
     );
   });

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function FruitItem(props) {
   return (
@@ -10,7 +11,9 @@ export default function FruitItem(props) {
         </div>
         <p>£ {props.price}</p>
       </div>
-      <div></div>
+      <div>
+        <Link href={props.link}>See more at {props.title}</Link>
+      </div>
     </li>
   );
 }
