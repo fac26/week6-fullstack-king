@@ -15,10 +15,6 @@ const select_all_fruits = db.prepare(
 `
 );
 
-export function getAllFruits() {
-  return select_all_fruits.all();
-}
-
 const select_fruit_by_id = db.prepare(
   /*sql*/
   `
@@ -33,10 +29,6 @@ SELECT
   WHERE fruits.id = ?
 `
 );
-
-export function getFruitById(id) {
-  return select_fruit_by_id.get(id);
-}
 
 const select_fruit_by_type = db.prepare(
   /*sql*/
@@ -54,10 +46,6 @@ SELECT
 `
 );
 
-export function getFruitByType(type) {
-  return select_fruit_by_type.all(type);
-}
-
 const select_all_ids = db.prepare(
   /*sql*/
   `
@@ -67,6 +55,18 @@ const select_all_ids = db.prepare(
 `
 );
 
+export function getAllFruits() {
+  return select_all_fruits.all();
+}
+
 export function getAllIds() {
   return select_all_ids.all();
+}
+
+export function getFruitById(id) {
+  return select_fruit_by_id.get(id);
+}
+
+export function getFruitByType(type) {
+  return select_fruit_by_type.all(type);
 }

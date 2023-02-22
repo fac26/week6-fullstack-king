@@ -2,21 +2,20 @@ import { getAllIds, getFruitById } from '@/model/fruits';
 import Fruit from '@/components/Fruit';
 
 export async function getStaticPaths() {
-  const arrIds = getAllIds().map((idObj) => ({
+  const fruitIDs = getAllIds().map((fruit) => ({
     params: {
-      fruit_id: idObj.id.toString(),
+      fruit_id: fruit.id.toString(),
     },
   }));
+
   return {
-    paths: arrIds,
+    paths: fruitIDs,
     fallback: false,
   };
 }
 
-export async function getStaticProps(context) {
-  const fruitId = context.params.fruit_id; //we receive this data when user visit this path, not during the build process
-  //fetch data from db for single fruit
-  const fruit = getFruitById(fruitId);
+export async function getStaticProps({ params }) {
+  const fruit = getFruitById(params.fruit_id);
 
   return {
     props: {
@@ -25,8 +24,7 @@ export async function getStaticProps(context) {
   };
 }
 
-export default function FruitDetail(props) {
-  const { fruitData } = props;
+export default function FruitDetail({ fruitData }) {
   return (
     <Fruit
       id={fruitData.id}

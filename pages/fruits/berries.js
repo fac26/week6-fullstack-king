@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Head from 'next/head';
 import FruitList from '@/components/FruitList';
 import { getFruitByType } from '@/model/fruits.js';
