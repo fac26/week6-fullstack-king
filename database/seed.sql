@@ -19,5 +19,3 @@ VALUES (1, 'Citrus'),
     ON CONFLICT DO NOTHING;
 
 COMMIT;
-
-PRAGMA foreign_keys = ON;
