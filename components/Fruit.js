@@ -5,8 +5,9 @@ import React, { useContext } from 'react';
 
 export default function FruitPage(props) {
   const { title, image_path, description, price } = props;
-  const addToBasket = () => cartCTX.addItem(props);
+
   const cartCTX = useContext(ctx);
+  const addToBasket = () => cartCTX.addItem(props);
 
   return (
     <>

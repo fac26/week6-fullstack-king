@@ -5,25 +5,24 @@ import React, { useContext } from 'react';
 import ctx from '@/store/ctx-obj';
 
 export default function FruitItem(props) {
-  const cartCTX = useContext(ctx);
+  const { id, title, image, price, link } = props;
 
-  const AddToBasketHandler = () => {
-    cartCTX.addItem(props);
-  };
+  const cartCTX = useContext(ctx);
+  const addToBasket = () => cartCTX.addItem(props);
 
   return (
-    <li id={props.id}>
-      <h3>{props.title}</h3>
+    <li id={id}>
+      <h3>{title}</h3>
       <div>
         <div>
-          <Image src={props.image} alt={props.title} width="40" height="40" />
+          <Image src={image} alt={title} width="40" height="40" />
         </div>
-        <p>£ {props.price}</p>
+        <p>£ {price}</p>
       </div>
       <div>
-        <Link href={props.link}>See more at {props.title}</Link>
+        <Link href={link}>See more at {title}</Link>
       </div>
-      <Button onClick={AddToBasketHandler}>Add to Cart</Button>
+      <Button onClick={addToBasket}>Add to Cart</Button>
     </li>
   );
 }

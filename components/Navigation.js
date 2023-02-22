@@ -1,9 +1,7 @@
-//nav bar
 import Link from 'next/link';
-
 import classes from './Navigation.module.css';
 
-function Navigation() {
+export default function Navigation() {
   return (
     <header className={classes.header}>
       <Link href="/">
@@ -25,5 +23,3 @@ function Navigation() {
     </header>
   );
 }
-
-export default Navigation;
