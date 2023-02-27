@@ -1,50 +1,32 @@
 import CartContext from './ctx-obj';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 
-const defaultState = {
-  items: [],
-  totalAmount: 0,
-};
+const calculateTotalAmount = (items) =>
+  items.reduce(
+    (acc, currentItem) => acc + currentItem.items * currentItem.price,
+    0
+  );
 
-const cartReducer = (state, action) => {
-  if (action.type === 'ADD') {
-    //action.value === fruit
-    let updatedItems;
-    const fruitInCart = state.items.find(
-      (fruit) => fruit.id === action.value.id
-    );
-    const fruit = { ...action.value };
-
-    if (fruitInCart) {
-      fruitInCart.items += 1;
-      updatedItems = state.items.concat();
-    } else {
-      fruit.items = 1;
-      updatedItems = state.items.concat(fruit); //returns new array
-    }
-    console.log(fruit, '...fruit');
-    //fruit.items
-
-    console.log(updatedItems, ' from Provider');
-    const updatedTotalAmount = state.totalAmount + action.value.price;
-    return {
-      //new state
-      items: updatedItems,
-      totalAmount: updatedTotalAmount,
-    };
-  }
-  return defaultState;
-};
 const CartProvider = (props) => {
-  const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultState);
-  const addItemHandler = (item) => {
-    dispatchCartAction({ type: 'ADD', value: item });
+  const [cartState, setCartState] = useState([]);
+
+  const addItem = (newItem) => {
+    const fruitFromCart = cartState.find((fruit) => fruit.id === newItem.id);
+    if (!fruitFromCart) setCartState([...cartState, { ...newItem, items: 1 }]);
+
+    setCartState(
+      cartState.map((existingItem) => {
+        if (existingItem.id !== newItem.id) return existingItem;
+        return { ...existingItem, items: existingItem.items + 1 };
+      })
+    );
   };
+
   const removeItemHandler = () => {};
   const cartCTX = {
-    items: cartState.items,
-    totalAmount: cartState.totalAmount,
-    addItem: addItemHandler,
+    items: cartState,
+    totalAmount: calculateTotalAmount(cartState),
+    addItem,
     removeItem: removeItemHandler,
   };
   return (
